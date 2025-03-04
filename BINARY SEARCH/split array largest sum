@@ -1,0 +1,41 @@
+//painters partition
+class Solution {
+public:
+int sum(vector<int>&nums){
+    int n=nums.size();
+    int summ=0;
+    for(int i=0;i<n;i++){
+     summ+=nums[i];
+    }
+    return summ;
+}
+int sumOfD(vector<int>&nums,int mid){
+    int painter=1;
+    int time=0;
+    for(int i=0;i<nums.size();i++){
+        if(time+nums[i]<=mid){
+            time+=nums[i];
+        }else{
+            painter++;
+            time=nums[i];
+        }
+    }// time complexity O( N* log (s))  -->s = sum of el
+    return painter;
+}
+    int splitArray(vector<int>& nums, int k) {
+      int lo=*max_element(nums.begin(),nums.end());
+      int hi=sum(nums);
+      int ans=0;
+      while(lo<=hi){
+        int mid=lo+(hi-lo)/2;
+        int painters=sumOfD(nums,mid);
+        if(painters<=k){
+            ans=mid;
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }// space complexity O(1)
+      }
+      return ans;
+    }
+};
